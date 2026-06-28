@@ -172,6 +172,9 @@ function resolveStatusBarValues(item: StatusBarConfig): Dict[] | undefined {
 }
 
 function formatStatusText(item: StatusBarConfig, value: unknown): string {
+  if (value !== null && typeof value === 'object') {
+    return item.label ? `$(${item.icon}) ${item.label}` : `$(${item.icon})`;
+  }
   const val = typeof value === 'string' ? value : JSON.stringify(value);
   if (item.label) return `$(${item.icon}) ${item.label}: ${val}`;
   return `$(${item.icon}) ${val}`;
